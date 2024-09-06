@@ -7,20 +7,15 @@ A web server that allows clients to add, follow, and fetch RSS feeds.
 - Add RSS feeds to be collected
 - Follow and unfollow RSS feeds added by other users
 - Fetch the latest posts from the RSS feeds you follow
-- Keep up with your favorite blogs, news sites, podcasts, and more!
 
 ## Getting Started
-
-### Prerequisites
-
-- Go (version X.X or later)
 
 ### Installation
 
 1. Clone the repository:
 
    ```
-   "github.com/PeterKWIlliams/feed-aggregator-go"
+   git clone github.com/PeterKWIlliams/feed-aggregator-go
    ```
 
 2. Navigate to the project directory:
@@ -29,13 +24,23 @@ A web server that allows clients to add, follow, and fetch RSS feeds.
    cd feed-aggregator-go
    ```
 
-3. Build the project:
+3. Create a .env file in the root directory of the project:
+
+   ```
+    touch .env
+   ```
+
+   - Add the following environment variables:
+     `PORT`="" # Specify the port number for the server to listen on
+     `DB_URL`="" # Provide the connection string for your postgres database
+
+4. Build the project:
 
    ```
    go build -o out ./cmd/server/main.go
    ```
 
-4. Run the server:
+5. Run the server:
 
    ```
    ./out
@@ -45,11 +50,17 @@ A web server that allows clients to add, follow, and fetch RSS feeds.
 
 ## Usage
 
+Authorization is provided by sending along the users api key in the `Authorization` header.
+The api key is generated when a user is created.
+
 Once the server is running, you can interact with it using the following endpoints:
 
-- `POST /feeds`: Add a new RSS feed
-- `GET /feeds`: Get a list of all available RSS feeds
-- `POST /follows`: Follow an RSS feed
-- `DELETE /follows`: Unfollow an RSS feed
-- `GET /posts`: Get the latest posts from the RSS feeds you follow
-
+- **`GET /healthz`**: Health check.
+- **`POST /v1/users`**: Add a new user.
+- **`GET /v1/users`**: Get user details (authenticated).
+- **`POST /v1/feeds`**: Create a new feed (authenticated).
+- **`GET /v1/feeds`**: Get all feeds.
+- **`POST /v1/feed_follows`**: Follow a feed (authenticated).
+- **`GET /v1/feed_follows`**: Get user's feed follows (authenticated).
+- **`DELETE /v1/feed_follows/{feedFollowID}`**: Unfollow a feed (authenticated).
+- **`GET /v1/posts`**: Get latest posts from followed feeds (authenticated).
