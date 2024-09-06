@@ -30,9 +30,10 @@ A web server that allows clients to add, follow, and fetch RSS feeds.
     touch .env
    ```
 
-   - Add the following environment variables:
-     `PORT`="" # Specify the port number for the server to listen on
-     `DB_URL`="" # Provide the connection string for your postgres database
+   Add the following environment variables:
+
+   - `PORT`="" # Specify the port number for the server to listen on
+   - `DB_URL`="" # Provide the connection string for your postgres database
 
 4. Build the project:
 
@@ -51,7 +52,7 @@ A web server that allows clients to add, follow, and fetch RSS feeds.
 ## Usage
 
 Authorization is provided by sending along the users api key in the `Authorization` header.
-The api key is generated when a user is created.
+The api key is generated automatically on user creation.
 
 Once the server is running, you can interact with it using the following endpoints:
 
